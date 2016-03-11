@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import pl.spring.demo.entity.BookEntity;
+import pl.spring.demo.entity.LibraryEntity;
 
 import static org.junit.Assert.*;
 
@@ -47,4 +48,15 @@ public class LibraryRepositoryTest {
 		// then
 	}
 
+    @Test
+    public void testShouldFindLibrarysByName() {
+        // given
+        final String libraryTitle = "bibl";
+        // when
+        List<LibraryEntity> librarysEntity = libraryRepository.findLibraryByName(libraryTitle);
+        // then
+        assertNotNull(librarysEntity);
+        assertFalse(librarysEntity.isEmpty());
+        assertEquals("Biblioteka Miejska", librarysEntity.get(0).getName());
+    }
 }
