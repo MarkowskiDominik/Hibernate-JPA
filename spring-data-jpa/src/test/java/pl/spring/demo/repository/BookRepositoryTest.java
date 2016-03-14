@@ -5,7 +5,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.mysema.query.types.Predicate;
+
+import pl.spring.demo.criteria.BookSearchCriteria;
 import pl.spring.demo.entity.BookEntity;
+import pl.spring.demo.entity.QAuthorEntity;
+import pl.spring.demo.entity.QBookEntity;
+import pl.spring.demo.entity.QLibraryEntity;
 
 import java.util.List;
 
@@ -66,4 +73,19 @@ public class BookRepositoryTest {
         assertFalse(booksEntity.isEmpty());
         assertEquals("Pierwsza książka", booksEntity.get(0).getTitle());
     }
+
+	@Test
+	public void testShouldFindBooksByCriteria() {
+		// given
+		final String bookTitle = "pierwsza";
+		final String author = "kowalski";
+		final String libraryName = "biblioteka";
+		final BookSearchCriteria criteria = new BookSearchCriteria(bookTitle, author, libraryName);
+		// when
+		List<BookEntity> booksEntity = bookRepository.findBooksBySearchCriteria(criteria);
+		// then
+		assertNotNull(booksEntity);
+		assertFalse(booksEntity.isEmpty());
+		assertEquals("Pierwsza książka", booksEntity.get(0).getTitle());
+	}
 }
