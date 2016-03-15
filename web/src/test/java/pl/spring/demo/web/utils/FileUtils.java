@@ -1,11 +1,11 @@
 package pl.spring.demo.web.utils;
 
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
 
 /**
  * Utils to read and access files.
@@ -70,6 +70,6 @@ public class FileUtils {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return file;
-    }
+		return file;
+	}
 }

@@ -1,5 +1,16 @@
 package pl.spring.demo.dao;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,48 +22,37 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.entity.LibraryEntity;
 
-import java.util.List;
-
-import javax.persistence.EntityNotFoundException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "CommonDaoTest-context.xml")
 public class LibraryDaoImplTest {
 
-    @Autowired
-    private LibraryDao libraryDao;
-    @Autowired
-    private BookDao bookDao;
+	@Autowired
+	private LibraryDao libraryDao;
+	@Autowired
+	private BookDao bookDao;
 
-    @Test
-    public void testShouldFindLibraryById() {
-        // given
-        final long libraryId = 0;
-        // when
-        LibraryEntity libraryEntity = libraryDao.findOne(libraryId);
-        // then
-        assertNotNull(libraryEntity);
-        assertEquals("Biblioteka Miejska", libraryEntity.getName());
-    }
+	@Test
+	public void testShouldFindLibraryById() {
+		// given
+		final long libraryId = 0;
+		// when
+		LibraryEntity libraryEntity = libraryDao.findOne(libraryId);
+		// then
+		assertNotNull(libraryEntity);
+		assertEquals("Biblioteka Miejska", libraryEntity.getName());
+	}
 
-    @Test
-    public void testShouldFindLibrarysByName() {
-        // given
-        final String libraryTitle = "bibl";
-        // when
-        List<LibraryEntity> librarysEntity = libraryDao.findLibraryByName(libraryTitle);
-        // then
-        assertNotNull(librarysEntity);
-        assertFalse(librarysEntity.isEmpty());
-        assertEquals("Biblioteka Miejska", librarysEntity.get(0).getName());
-    }
+	@Test
+	public void testShouldFindLibrarysByName() {
+		// given
+		final String libraryTitle = "bibl";
+		// when
+		List<LibraryEntity> librarysEntity = libraryDao.findLibraryByName(libraryTitle);
+		// then
+		assertNotNull(librarysEntity);
+		assertFalse(librarysEntity.isEmpty());
+		assertEquals("Biblioteka Miejska", librarysEntity.get(0).getName());
+	}
 
 	@Test
 	@Transactional
@@ -70,7 +70,7 @@ public class LibraryDaoImplTest {
 		assertNotEquals(booksBeforeDelete.size(), booksAfterDelete.size());
 		assertTrue(booksAfterDelete.isEmpty());
 	}
-	
+
 	@Test(expected = EntityNotFoundException.class)
 	@Transactional
 	@Rollback(true)

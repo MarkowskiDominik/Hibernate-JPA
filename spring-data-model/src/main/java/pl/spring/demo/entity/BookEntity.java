@@ -5,52 +5,55 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "BOOK")
 public class BookEntity implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @Column(nullable = false, length = 50)
-    private String title;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	@Column(nullable = false, length = 50)
+	private String title;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "BOOK_AUTHOR",
-            joinColumns = {@JoinColumn(name = "BOOK_ID", nullable = false, updatable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "AUTHOR_ID", nullable = false, updatable = false)}
-    )
-    private Set<AuthorEntity> authors = new HashSet<>();
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "BOOK_AUTHOR",
+		joinColumns = { @JoinColumn(name = "BOOK_ID", nullable = false, updatable = false) },
+		inverseJoinColumns = { @JoinColumn(name = "AUTHOR_ID", nullable = false, updatable = false) })
+	private Set<AuthorEntity> authors = new HashSet<>();
 
-    // for hibernate
-    protected BookEntity() {
-}
+	@ManyToOne(optional = false)
+	private LibraryEntity library;
 
-    public BookEntity(Long id, String title) {
-        this.id = id;
-        this.title = title;
-    }
+	// for hibernate
+	protected BookEntity() {
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public BookEntity(Long id, String title) {
+		this.id = id;
+		this.title = title;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public Set<AuthorEntity> getAuthors() {
-        return authors;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setAuthors(Set<AuthorEntity> authors) {
-        this.authors = authors;
-    }
+	public Set<AuthorEntity> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(Set<AuthorEntity> authors) {
+		this.authors = authors;
+	}
 }
