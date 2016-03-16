@@ -1,6 +1,8 @@
 package pl.spring.demo.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import pl.spring.demo.criteria.BookSearchCriteria;
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.mapper.BookMapper;
 import pl.spring.demo.repository.BookRepository;
+import pl.spring.demo.repository.predicate.BookSearchPredicate;
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
 
@@ -27,17 +30,29 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<BookTo> findBooksByTitle(String title) {
-		return BookMapper.map2To(bookRepository.findBookByTitle(title));
+		return BookMapper.map2To(bookRepository.findBooksByTitle(title));
 	}
 
 	@Override
 	public List<BookTo> findBooksByAuthor(String author) {
-		return BookMapper.map2To(bookRepository.findBookByAuthor(author));
+		return BookMapper.map2To(bookRepository.findBooksByAuthor(author));
 	}
 
 	@Override
-	public List<BookTo> findBookByCriteria(BookSearchCriteria bookSearchCriteria) {
-		return BookMapper.map2To(bookRepository.findBooksBySearchCriteria(bookSearchCriteria));
+	public List<BookTo> findBooksByCriteriaQueryDsl(BookSearchCriteria bookSearchCriteria) {
+		return BookMapper.map2To(bookRepository.findBooksBySearchCriteriaQueryDsl(bookSearchCriteria));
+	}
+	
+	@Override
+	public List<BookTo> findBooksByCriteriaPredicateExecutor(BookSearchCriteria bookSearchCriteria) {
+		return BookMapper.map2To(StreamSupport.stream(
+				bookRepository.findAll(BookSearchPredicate.getBookSearchPredicate(bookSearchCriteria)).spliterator(),
+				false).collect(Collectors.toList()));
+	}
+
+	@Override
+	public List<BookTo> findBooksByCriteriaJinq(BookSearchCriteria bookSearchCriteria) {
+		return BookMapper.map2To(bookRepository.findBooksBySearchCriteriaJinq(bookSearchCriteria));
 	}
 
 	@Override

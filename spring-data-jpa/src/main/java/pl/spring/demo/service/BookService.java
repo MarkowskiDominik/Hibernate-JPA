@@ -13,7 +13,11 @@ public interface BookService {
 
 	List<BookTo> findBooksByAuthor(String author);
 
-	List<BookTo> findBookByCriteria(BookSearchCriteria bookSearchCriteria);
+	List<BookTo> findBooksByCriteriaQueryDsl(BookSearchCriteria bookSearchCriteria);
+
+	List<BookTo> findBooksByCriteriaPredicateExecutor(BookSearchCriteria bookSearchCriteria);
+
+	List<BookTo> findBooksByCriteriaJinq(BookSearchCriteria bookSearchCriteria);
 
 	BookTo saveBook(BookTo book);
 }
