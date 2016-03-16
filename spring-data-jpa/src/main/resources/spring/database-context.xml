@@ -31,4 +31,7 @@
 
     <jpa:repositories base-package="pl.spring.demo.repository" />
 
+    <bean id="jingJPAStreamProvider" class="org.jinq.jpa.JinqJPAStreamProvider">
+        <constructor-arg name="factory" ref="entityManagerFactory"></constructor-arg>	
+    </bean>
 </beans>
