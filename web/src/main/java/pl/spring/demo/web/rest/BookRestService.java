@@ -35,6 +35,6 @@ public class BookRestService {
 	@RequestMapping(value = "/books-by-criteria", method = RequestMethod.POST)
 	public List<BookTo> getBooksByCriteria(@RequestBody BookSearchCriteria bookSearchCriteria,
 			Map<String, Object> params) {
-		return bookService.findBookByCriteria(bookSearchCriteria);
+		return bookService.findBooksByCriteriaQueryDsl(bookSearchCriteria);
 	}
 }

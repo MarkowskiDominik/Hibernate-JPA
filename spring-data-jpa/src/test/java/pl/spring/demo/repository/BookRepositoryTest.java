@@ -39,7 +39,7 @@ public class BookRepositoryTest {
 		// given
 		final String bookTitle = "pierwsza";
 		// when
-		List<BookEntity> booksEntity = bookRepository.findBookByTitle(bookTitle);
+		List<BookEntity> booksEntity = bookRepository.findBooksByTitle(bookTitle);
 		// then
 		assertNotNull(booksEntity);
 		assertFalse(booksEntity.isEmpty());
@@ -52,7 +52,7 @@ public class BookRepositoryTest {
 		// given
 		final String author = "jan";
 		// when
-		List<BookEntity> booksEntity = bookRepository.findBookByAuthor(author);
+		List<BookEntity> booksEntity = bookRepository.findBooksByAuthor(author);
 		// then
 		assertNotNull(booksEntity);
 		assertFalse(booksEntity.isEmpty());
@@ -65,7 +65,7 @@ public class BookRepositoryTest {
 		// given
 		final String author = "kowalski";
 		// when
-		List<BookEntity> booksEntity = bookRepository.findBookByAuthor(author);
+		List<BookEntity> booksEntity = bookRepository.findBooksByAuthor(author);
 		// then
 		assertNotNull(booksEntity);
 		assertFalse(booksEntity.isEmpty());
@@ -78,7 +78,7 @@ public class BookRepositoryTest {
 		// given
 		final BookSearchCriteria criteria = new BookSearchCriteria(null, null, null);
 		// when
-		List<BookEntity> booksEntity = bookRepository.findBooksBySearchCriteria(criteria);
+		List<BookEntity> booksEntity = bookRepository.findBooksBySearchCriteriaQueryDsl(criteria);
 		// then
 		assertNotNull(booksEntity);
 		assertFalse(booksEntity.isEmpty());
@@ -93,7 +93,7 @@ public class BookRepositoryTest {
 		final String libraryName = "główna";
 		final BookSearchCriteria criteria = new BookSearchCriteria(bookTitle, author, libraryName);
 		// when
-		List<BookEntity> booksEntity = bookRepository.findBooksBySearchCriteria(criteria);
+		List<BookEntity> booksEntity = bookRepository.findBooksBySearchCriteriaQueryDsl(criteria);
 		// then
 		assertNotNull(booksEntity);
 		assertFalse(booksEntity.isEmpty());
@@ -107,7 +107,7 @@ public class BookRepositoryTest {
 		final String bookTitle = "książka abc";
 		final BookSearchCriteria criteria = new BookSearchCriteria(bookTitle, null, null);
 		// when
-		List<BookEntity> booksEntity = bookRepository.findBooksBySearchCriteria(criteria);
+		List<BookEntity> booksEntity = bookRepository.findBooksBySearchCriteriaQueryDsl(criteria);
 		// then
 		assertNotNull(booksEntity);
 		assertTrue(booksEntity.isEmpty());
@@ -119,7 +119,7 @@ public class BookRepositoryTest {
 		final String bookTitle = "książka";
 		final BookSearchCriteria criteria = new BookSearchCriteria(bookTitle, null, null);
 		// when
-		List<BookEntity> booksEntity = bookRepository.findBooksBySearchCriteria(criteria);
+		List<BookEntity> booksEntity = bookRepository.findBooksBySearchCriteriaQueryDsl(criteria);
 		// then
 		assertNotNull(booksEntity);
 		assertFalse(booksEntity.isEmpty());
@@ -132,7 +132,7 @@ public class BookRepositoryTest {
 		final String author = "jan";
 		final BookSearchCriteria criteria = new BookSearchCriteria(null, author, null);
 		// when
-		List<BookEntity> booksEntity = bookRepository.findBooksBySearchCriteria(criteria);
+		List<BookEntity> booksEntity = bookRepository.findBooksBySearchCriteriaQueryDsl(criteria);
 		// then
 		assertNotNull(booksEntity);
 		assertFalse(booksEntity.isEmpty());
@@ -145,7 +145,7 @@ public class BookRepositoryTest {
 		final String libraryName = "filia";
 		final BookSearchCriteria criteria = new BookSearchCriteria(null, null, libraryName);
 		// when
-		List<BookEntity> booksEntity = bookRepository.findBooksBySearchCriteria(criteria);
+		List<BookEntity> booksEntity = bookRepository.findBooksBySearchCriteriaQueryDsl(criteria);
 		// then
 		assertNotNull(booksEntity);
 		assertFalse(booksEntity.isEmpty());
