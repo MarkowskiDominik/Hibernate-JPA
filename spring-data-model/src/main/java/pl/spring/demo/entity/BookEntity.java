@@ -56,4 +56,12 @@ public class BookEntity implements Serializable {
 	public void setAuthors(Set<AuthorEntity> authors) {
 		this.authors = authors;
 	}
+
+	public LibraryEntity getLibrary() {
+		return library;
+	}
+
+	public void setLibrary(LibraryEntity library) {
+		this.library = library;
+	}
 }
