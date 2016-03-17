@@ -251,7 +251,7 @@ public class BookServiceTest {
 	public void testShouldFindBooksByCriteriaJinq() {
 		// given
 		final String bookTitle = "książka";
-		final String author = "kowalski";
+		final String author = "Jan Kowalski";
 		final String libraryName = "główna";
 		final BookSearchCriteria criteria = new BookSearchCriteria(bookTitle, author, libraryName);
 		// when
@@ -298,7 +298,7 @@ public class BookServiceTest {
 		// then
 		assertNotNull(booksTo);
 		assertFalse(booksTo.isEmpty());
-		assertEquals(7, booksTo.size());
+		assertEquals(4, booksTo.size());
 	}
 
 	@Test

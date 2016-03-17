@@ -22,6 +22,16 @@ public class BookRepositoryTest {
 
 	@Autowired
 	private BookRepository bookRepository;
+	
+	@Test
+	public void testShouldFindAllBook() {
+		// given
+		// when
+		List<BookEntity> booksEntity = bookRepository.findAll();
+		// then
+		assertNotNull(booksEntity);
+		assertEquals(12, booksEntity.size());
+	}
 
 	@Test
 	public void testShouldFindBookById() {

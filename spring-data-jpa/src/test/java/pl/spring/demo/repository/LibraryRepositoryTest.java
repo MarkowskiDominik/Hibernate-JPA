@@ -29,11 +29,21 @@ public class LibraryRepositoryTest {
 	private LibraryRepository libraryRepository;
 	@Autowired
 	private BookRepository bookRepository;
+	
+	@Test
+	public void testShouldFindAllLibrary() {
+		// given
+		// when
+		List<LibraryEntity> librarysEntity = libraryRepository.findAll();
+		// then
+		assertNotNull(librarysEntity);
+		assertEquals(4, librarysEntity.size());
+	}
 
 	@Test
 	public void testShouldFindLibraryById() {
 		// given
-		final long libraryId = 0;
+		final long libraryId = 1;
 		// when
 		LibraryEntity libraryEntity = libraryRepository.findOne(libraryId);
 		// then
@@ -50,7 +60,7 @@ public class LibraryRepositoryTest {
 		// then
 		assertNotNull(librarysEntity);
 		assertFalse(librarysEntity.isEmpty());
-		assertEquals("Biblioteka Miejska", librarysEntity.get(0).getName());
+		assertEquals("Biblioteka Miejska", librarysEntity.get(1).getName());
 	}
 
 	@Test
@@ -65,9 +75,9 @@ public class LibraryRepositoryTest {
 		List<BookEntity> booksAfterDelete = bookRepository.findAll();
 		// then
 		assertNull(libraryRepository.findOne(libraryId));
-		assertNotEquals(booksBeforeDelete.size(), 0);
+		assertNotEquals(0, booksBeforeDelete.size());
 		assertNotEquals(booksBeforeDelete.size(), booksAfterDelete.size());
-		assertTrue(booksAfterDelete.isEmpty());
+		assertEquals(9, booksAfterDelete.size());
 	}
 
 	@Test(expected = DataAccessException.class)

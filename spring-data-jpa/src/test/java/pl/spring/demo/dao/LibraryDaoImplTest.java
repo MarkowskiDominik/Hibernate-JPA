@@ -2,10 +2,8 @@ package pl.spring.demo.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -30,11 +28,21 @@ public class LibraryDaoImplTest {
 	private LibraryDao libraryDao;
 	@Autowired
 	private BookDao bookDao;
+	
+	@Test
+	public void testShouldFindAllLibrary() {
+		// given
+		// when
+		List<LibraryEntity> librarysEntity = libraryDao.findAll();
+		// then
+		assertNotNull(librarysEntity);
+		assertEquals(4, librarysEntity.size());
+	}
 
 	@Test
 	public void testShouldFindLibraryById() {
 		// given
-		final long libraryId = 0;
+		final long libraryId = 1;
 		// when
 		LibraryEntity libraryEntity = libraryDao.findOne(libraryId);
 		// then
@@ -45,7 +53,7 @@ public class LibraryDaoImplTest {
 	@Test
 	public void testShouldFindLibrarysByName() {
 		// given
-		final String libraryTitle = "bibl";
+		final String libraryTitle = "Biblioteka M";
 		// when
 		List<LibraryEntity> librarysEntity = libraryDao.findLibraryByName(libraryTitle);
 		// then
@@ -64,11 +72,12 @@ public class LibraryDaoImplTest {
 		// when
 		libraryDao.delete(libraryId);
 		List<BookEntity> booksAfterDelete = bookDao.findAll();
+		List<LibraryEntity> librarysAfterDelete = libraryDao.findAll();
 		// then
 		assertNull(libraryDao.findOne(libraryId));
-		assertNotEquals(booksBeforeDelete.size(), 0);
-		assertNotEquals(booksBeforeDelete.size(), booksAfterDelete.size());
-		assertTrue(booksAfterDelete.isEmpty());
+		assertEquals(12, booksBeforeDelete.size());
+		assertEquals(9, booksAfterDelete.size());
+		assertEquals(3, librarysAfterDelete.size());
 	}
 
 	@Test(expected = EntityNotFoundException.class)

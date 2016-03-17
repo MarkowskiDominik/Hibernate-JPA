@@ -27,7 +27,7 @@ public class LibraryEntity implements Serializable {
 	@OneToMany(mappedBy = "library", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<BookEntity> books = new HashSet<>();
 
-	public LibraryEntity() {
+	protected LibraryEntity() {
 	}
 
 	public LibraryEntity(Long id, String name) {
